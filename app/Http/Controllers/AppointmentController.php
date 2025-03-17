@@ -33,10 +33,10 @@ class AppointmentController extends Controller
                 'end_time' => 'required|date_format:Y-m-d\TH:i|after:start_time',
             ]);
     
-            //dd($validated); // If this runs, validation passed
+            //dd($validated); // if this runs validation passed
     
         // } catch (\Illuminate\Validation\ValidationException $e) {
-        //     dd($e->errors()); // This will show exactly what validation failed
+        //     dd($e->errors()); // validation failed
         // }
 
         $client = Client::firstOrCreate(
