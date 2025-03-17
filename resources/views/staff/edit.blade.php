@@ -138,9 +138,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         let monthsWorked = (currentDate.getFullYear() - joiningDate.getFullYear()) * 12;
         monthsWorked += currentDate.getMonth() - joiningDate.getMonth();
-        // if (currentDate.getDate() < joiningDate.getDate()) {
-        //     monthsWorked -= 1;
-        // }
+        if (currentDate.getDate() < joiningDate.getDate()) {
+            monthsWorked -= 1;
+        }
         console.log('monthsWorked '+monthsWorked);
         let totalEarnedLeave = Math.min(30 * (monthsWorked / 12), monthsWorked * 2.5); // Max 30 per year
         annualLeaveInput.value = totalEarnedLeave;

@@ -50,7 +50,7 @@
         <tbody>
             @forelse($leaves as $leave)
                 <tr>
-                    <td>{{ $leave->staff->name }}</td>
+                    <td>{{ $leave->staff ? $leave->staff->name : 'N/A' }}</td>
                     <td>{{ ucfirst($leave->leave_type) }}</td>
                     <td>{{ $leave->start_date }}</td>
                     <td>{{ $leave->end_date }}</td>

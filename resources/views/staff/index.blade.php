@@ -31,6 +31,7 @@
             </div>
             <div class="col-md-3">
                 <button type="submit" class="btn btn-info">Filter</button>
+                <a href="{{ route('staff.index') }}" class="btn btn-secondary">Reset</a>
             </div>
         </div>
     </form>
