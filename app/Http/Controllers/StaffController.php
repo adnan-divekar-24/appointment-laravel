@@ -112,13 +112,12 @@ class StaffController extends Controller
     public function update(Request $request, Staff $staff)
     {
         // check duplicate
-        $existingStaff = Staff::where('email', $request->email)
-        ->orWhere('phone', $request->phone)
+        $existingStaff = Staff::where(function ($query) use ($request, $staff) {
+            $query->where('email', $request->email)
+                  ->orWhere('phone', $request->phone);
+        })
+        ->where('id', '!=', $staff->id) // current staff
         ->first();
-
-        if ($existingStaff) {
-        return redirect()->back()->withErrors(['error' => 'A staff member with this email or phone already exists.'])->withInput();
-        }
         //try{
             $validatedData = $request->validate([
             'name'            => 'required|string|max:255',
