@@ -44,6 +44,15 @@ class StaffController extends Controller
     public function store(Request $request)
     {
         //dd($request->all());
+        // check duplicate
+        $existingStaff = Staff::where('email', $request->email)
+        ->orWhere('phone', $request->phone)
+        ->first();
+
+        if ($existingStaff) {
+        return redirect()->back()->withErrors(['error' => 'A staff member with this email or phone already exists.'])->withInput();
+        }
+
         try{
         $validatedData = $request->validate([
             'name'            => 'required|string|max:255',
@@ -54,7 +63,7 @@ class StaffController extends Controller
             'dob'             => 'required|date',
             'joining_date'    => 'required|date',
             'department_id'   => 'required|exists:departments,id',
-            'sub_department_id' => 'required|exists:sub_departments,id',
+            'sub_department_id' => 'nullable|exists:sub_departments,id',
             'shift_hours'     => 'required|integer|in:7,8,9',
         ]);
         } catch (\Illuminate\Validation\ValidationException $e) {
@@ -102,6 +111,14 @@ class StaffController extends Controller
     // Update staff member details
     public function update(Request $request, Staff $staff)
     {
+        // check duplicate
+        $existingStaff = Staff::where('email', $request->email)
+        ->orWhere('phone', $request->phone)
+        ->first();
+
+        if ($existingStaff) {
+        return redirect()->back()->withErrors(['error' => 'A staff member with this email or phone already exists.'])->withInput();
+        }
         //try{
             $validatedData = $request->validate([
             'name'            => 'required|string|max:255',
@@ -112,7 +129,7 @@ class StaffController extends Controller
             'dob'             => 'required|date',
             'joining_date'    => 'required|date',
             'department_id'   => 'required|exists:departments,id',
-            'sub_department_id' => 'required|exists:sub_departments,id',
+            'sub_department_id' => 'nullable|exists:sub_departments,id',
             'shift_hours'     => 'required|integer|in:7,8,9',
         ]);
 

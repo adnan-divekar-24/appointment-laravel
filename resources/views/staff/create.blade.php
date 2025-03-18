@@ -3,6 +3,16 @@
 @section('content')
 <div class="container">
     <h2 class="mb-4">Add Staff</h2>
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <div class="card">
         <div class="card-body">
             <form action="{{ route('staff.store') }}" method="POST">
@@ -70,7 +80,7 @@
 
                 <div class="mb-3">
                     <label class="form-label">Sub-Department</label>
-                    <select name="sub_department_id" id="sub_department" class="form-control" required>
+                    <select name="sub_department_id" id="sub_department" class="form-control">
                         <option value="">Select Sub-Department</option>
                     </select>
                 </div>
