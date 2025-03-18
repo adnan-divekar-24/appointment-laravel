@@ -118,6 +118,10 @@ class StaffController extends Controller
         })
         ->where('id', '!=', $staff->id) // current staff
         ->first();
+
+        if ($existingStaff) {
+            return redirect()->back()->withErrors(['error' => 'A staff member with this email or phone already exists.'])->withInput();
+        }
         //try{
             $validatedData = $request->validate([
             'name'            => 'required|string|max:255',
